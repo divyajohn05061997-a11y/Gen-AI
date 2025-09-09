@@ -1,0 +1,46 @@
+LLMAPI:
+{
+    "messages": [
+        {
+            "role": "user",
+            "content": "You are an AI assistant to convert the selenium java code for leaftaps to playwright typescript. Given the following Selenium java code:\n\npackage com.leaftaps.ui.pages;\n\nimport java.time.Duration;\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.chrome.ChromeDriver;\nimport io.github.bonigarcia.wdm.WebDriverManager;\n\npublic class Login {\n public static void main(String[] args) {\n /*\n * Class Name: Login\n */\n ChromeDriver driver = new ChromeDriver();\n driver.get(\"http://leaftaps.com/opentaps\");\n driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));\n driver.manage().window().maximize();\n driver.findElement(By.id(\"username1\")).sendKeys(\"DemoSalesManager\");\n driver.findElement(By.id(\"password\")).sendKeys(\"crmsfa\");\n driver.findElement(By.className(\"decorativeSubmit\")).click();\n String title = driver.getTitle();\n System.out.println(title);\n }\n}\n\nInstructions:\n\nImplementation Guidelines for Playwright with TypeScript\n- Use TypeScript (ES6+ features where appropriate).\n- Use Playwright latest stable version.\n- Import all required classes from @playwright/test.\n- Add JSDoc/TSDoc comments for every class and method.\n- [MANDATORY] Every method should have clear comments above its signature explaining the functionality.\n- Do not use auto-generated IDs (e.g., u_0_5_ry) — instead, prefer stable attributes or visible text.\n- Use locators with the following priority order:\n 1. getByRole\n 2. getByLabel\n 3. getByPlaceholder\n 4. getByText\n 5. getByTestId\n 6. CSS/XPath (only if no better option available)\n- Use Page Object Model (POM) design pattern.\n- Explicit waits should be handled with Playwright’s built-in auto-waiting instead of manual delays.\n- For dropdowns, use selectOption with value or label.REMOVE EXTRA TEXTWRITE ONLY CODE"
+
+        }
+    ],
+  "model": "openai/gpt-oss-20b",
+    "temperature": 0.1
+}
+LLM Output:
+{
+    "id": "chatcmpl-8fe35f72-efaa-4aec-bd8e-cb1c39884363",
+    "object": "chat.completion",
+    "created": 1757400833,
+    "model": "openai/gpt-oss-20b",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "```ts\n// loginPage.ts\nimport { Page, Locator } from '@playwright/test';\n\n/**\n * Page Object representing the Leaftaps login page.\n *\n * @remarks\n * This class encapsulates all interactions with the login page.\n * It follows the Page Object Model (POM) design pattern.\n */\nexport class LoginPage {\n  private readonly page: Page;\n\n  // Locators following the priority order:\n  // 1. getByRole\n  // 2. getByLabel\n  // 3. getByPlaceholder\n  // 4. getByText\n  // 5. getByTestId\n  // 6. CSS/XPath (fallback)\n  private readonly usernameInput: Locator;\n  private readonly passwordInput: Locator;\n  private readonly loginButton: Locator;\n\n  /**\n   * Creates an instance of LoginPage.\n   *\n   * @param page - The Playwright Page object.\n   */\n  constructor(page: Page) {\n    this.page = page;\n    this.usernameInput = page.getByLabel('Username');\n    this.passwordInput = page.getByLabel('Password');\n    this.loginButton = page.getByRole('button', { name: 'Login' });\n  }\n\n  /**\n   * Navigates to the Leaftaps login page.\n   *\n   * @returns Promise that resolves when navigation is complete.\n   */\n  async goto(): Promise<void> {\n    await this.page.goto('http://leaftaps.com/opentaps');\n  }\n\n  /**\n   * Performs login using the provided credentials.\n   *\n   * @param username - The username to enter.\n   * @param password - The password to enter.\n   * @returns Promise that resolves when the login button is clicked.\n   */\n  async login(username: string, password: string): Promise<void> {\n    await this.usernameInput.fill(username);\n    await this.passwordInput.fill(password);\n    await this.loginButton.click();\n  }\n\n  /**\n   * Retrieves the current page title.\n   *\n   * @returns Promise that resolves to the page title string.\n   */\n  async getTitle(): Promise<string> {\n    return this.page.title();\n  }\n}\n```\n\n```ts\n// login.spec.ts\nimport { test, expect } from '@playwright/test';\nimport { LoginPage } from './loginPage';\n\n/**\n * Test suite for the Leaftaps login functionality.\n */\ntest.describe('Leaftaps Login Tests', () => {\n  test('should log in successfully and display correct title', async ({ page }) => {\n    const loginPage = new LoginPage(page);\n\n    // Navigate to the login page\n    await loginPage.goto();\n\n    // Perform login\n    await loginPage.login('DemoSalesManager', 'crmsfa');\n\n    // Verify that the page title contains \"Dashboard\"\n    const title = await loginPage.getTitle();\n    console.log(`Page title after login: ${title}`);\n    expect(title).toContain('Dashboard');\n  });\n});\n```",
+                "reasoning": "We need to produce Playwright TypeScript code converting the Selenium Java code. The code logs into leaftaps. We need to create a Page Object Model. Provide a test file that uses the page object. Use Playwright's test runner. Provide JSDoc/TSDoc comments for every class and method. Use locators priority. Use getByRole, getByLabel, etc. For login page, we need to locate username, password, login button. The original code uses id \"username1\" and id \"password\" and class \"decorativeSubmit\". In Playwright, we can use getByLabel or getByPlaceholder. But we don't know the placeholder. We can use getByRole('textbox', { name: 'Username' }) maybe. But we need to inspect the page. Let's quickly recall leaftaps login page. The login page at http://leaftaps.com/opentaps has fields: username id=\"username\", password id=\"password\", login button class \"decorativeSubmit\". Actually the id is \"username\". But the code uses \"username1\" maybe a mistake. But we can use getByRole('textbox', { name: 'Username' }) or getByLabel('Username'). Let's use getByLabel('Username').\n\nAlso we need to maximize window. In Playwright, we can set viewport size or use page.setViewportSize. But we can skip.\n\nWe need to output only code. Provide a page object class LoginPage with methods: goto(), login(username, password), getTitle() maybe. Then a test file that uses it.\n\nWe need to import { test, expect, Page } from '@playwright/test'.\n\nAdd JSDoc comments.\n\nLet's produce two files: loginPage.ts and login.spec.ts.\n\nBut the instruction: \"WRITE ONLY CODE\". So we output code. Provide both files? The user likely expects a single code snippet. But we can provide both files separated by comments. Let's produce a single file with page object and test. But better to separate.\n\nLet's produce:\n\n// loginPage.ts\n// login.spec.ts\n\nAdd JSDoc.\n\nLet's write.\n\nAlso we need to use getByRole, getByLabel, etc. For login button, we can use getByRole('button', { name: 'Login' }) maybe. But the button text is \"Login\". Let's check. The button has class decorativeSubmit and text \"Login\". So we can use getByRole('button', { name: 'Login' }).\n\nLet's write.\n\nAlso we need to use page.goto('http://leaftaps.com/opentaps').\n\nAdd explicit wait for page load.\n\nOk.\n\nLet's produce code."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.050724186,
+        "prompt_tokens": 474,
+        "prompt_time": 0.030959423,
+        "completion_tokens": 1163,
+        "completion_time": 1.037280312,
+        "total_tokens": 1637,
+        "total_time": 1.068239735
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_a5ac2a5d7b",
+    "x_groq": {
+        "id": "req_01k4pm16pyf4etc0sdcnc77ysa"
+    },
+    "service_tier": "on_demand"
+}
