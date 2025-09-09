@@ -1,0 +1,207 @@
+ Context:
+    You are an AI assistant to convert the selenium java code for leaftaps to playwright typescript
+   
+    Given the following Selenium java code:
+    package com.leaftaps.ui.pages;
+
+
+        import java.time.Duration;
+
+        import org.openqa.selenium.By;
+        import org.openqa.selenium.chrome.ChromeDriver;
+
+        import io.github.bonigarcia.wdm.WebDriverManager;
+
+        public class Login {
+          
+          public static void main(String[] args) {
+            /*
+            * Class Name: Login
+            */
+            
+            // Step 1) Launch the chrome browser (Class Name -> ChromeDriver)
+            ChromeDriver driver = new ChromeDriver();
+            
+            // Step 2) Load the URL (http://leaftaps.com/opentaps/control/main) -> get
+            driver.get("http://leaftaps.com/opentaps");
+            
+            // Step 2b) Add common time to wait for all/any elements to load (Write once)
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+            
+            // Step 3) Maximize the chrome browser
+            driver.manage().window().maximize();
+            
+            // Step 4) Find the username and type the value (DemoSalesManager)
+            driver.findElement(By.id("username1")).sendKeys("DemoSalesManager");
+            
+            // Step 5) Find the password and type the value (crmsfa)
+            driver.findElement(By.id("password")).sendKeys("crmsfa");	
+            
+            // Step 6) Find the login button and click
+            driver.findElement(By.className("decorativeSubmit")).click();
+            
+            // Step 7) Verify the title 
+            String title = driver.getTitle();
+            System.out.println(title);
+
+          }
+
+        }
+
+Instructions:
+
+     Implementation Guidelines for Playwright with TypeScript
+
+
+- Use **TypeScript** (ES6+ features where appropriate).
+- Use **Playwright latest stable version**.
+- Import all required classes from `@playwright/test`.
+- **Add JSDoc/TSDoc comments** for every class and method.
+- **[MANDATORY]** Every method should have clear comments above its signature explaining the functionality.
+- **Do not** use auto-generated IDs (e.g., `u_0_5_ry`) — instead, prefer stable attributes or visible text.
+- Use **locators** with the following priority order:
+1. `getByRole`
+2. `getByLabel`
+3. `getByPlaceholder`
+4. `getByText`
+5. `getByTestId`
+6. CSS/XPath (only if no better option available)
+- Use **Page Object Model (POM)** design pattern.
+- **Explicit waits** should be handled with Playwright’s built-in auto-waiting instead of manual delays.
+- For dropdowns, use **`selectOption`** with value or label.
+
+Chatgpt output:
+
+import { test, expect, Page } from '@playwright/test';
+
+/**
+ * Page Object Model class for the Login Page of Leaftaps application
+ */
+class LoginPage {
+  private page: Page;
+
+  /**
+   * Constructor to initialize the Playwright page instance
+   * @param page Playwright Page object
+   */
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  /**
+   * Navigate to the Leaftaps Login Page
+   */
+  async goto(): Promise<void> {
+    await this.page.goto('http://leaftaps.com/opentaps');
+  }
+
+  /**
+   * Enter the username into the username field
+   * @param username Username string
+   */
+  async enterUsername(username: string): Promise<void> {
+    await this.page.getByLabel('Username').fill(username);
+  }
+
+  /**
+   * Enter the password into the password field
+   * @param password Password string
+   */
+  async enterPassword(password: string): Promise<void> {
+    await this.page.getByLabel('Password').fill(password);
+  }
+
+  /**
+   * Click the login button
+   */
+  async clickLogin(): Promise<void> {
+    await this.page.getByRole('button', { name: 'Login' }).click();
+  }
+
+  /**
+   * Get the current page title
+   * @returns Page title string
+   */
+  async getPageTitle(): Promise<string> {
+    return this.page.title();
+  }
+}
+
+/**
+ * Test suite for Login functionality of Leaftaps
+ */
+test.describe('Leaftaps Login', () => {
+  test('should login successfully and verify title', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    // Step 1: Navigate to the Login page
+    await loginPage.goto();
+
+    // Step 2: Enter valid username
+    await loginPage.enterUsername('DemoSalesManager');
+
+    // Step 3: Enter valid password
+    await loginPage.enterPassword('crmsfa');
+
+    // Step 4: Click Login button
+    await loginPage.clickLogin();
+
+    // Step 5: Verify the page title
+    const title = await loginPage.getPageTitle();
+    console.log('Page Title:', title);
+
+    // Assertion for validation
+    await expect(page).toHaveTitle(/.*Leaftaps.*/);
+  });
+});
+LLM API:
+
+{
+    "messages": [
+        {
+            "role": "user",
+            "content": "You are an AI assistant to convert the selenium java code for leaftaps to playwright typescript. Given the following Selenium java code:\n\npackage com.leaftaps.ui.pages;\n\nimport java.time.Duration;\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.chrome.ChromeDriver;\nimport io.github.bonigarcia.wdm.WebDriverManager;\n\npublic class Login {\n public static void main(String[] args) {\n /*\n * Class Name: Login\n */\n ChromeDriver driver = new ChromeDriver();\n driver.get(\"http://leaftaps.com/opentaps\");\n driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));\n driver.manage().window().maximize();\n driver.findElement(By.id(\"username1\")).sendKeys(\"DemoSalesManager\");\n driver.findElement(By.id(\"password\")).sendKeys(\"crmsfa\");\n driver.findElement(By.className(\"decorativeSubmit\")).click();\n String title = driver.getTitle();\n System.out.println(title);\n }\n}\n\nInstructions:\n\nImplementation Guidelines for Playwright with TypeScript\n- Use TypeScript (ES6+ features where appropriate).\n- Use Playwright latest stable version.\n- Import all required classes from @playwright/test.\n- Add JSDoc/TSDoc comments for every class and method.\n- [MANDATORY] Every method should have clear comments above its signature explaining the functionality.\n- Do not use auto-generated IDs (e.g., u_0_5_ry) — instead, prefer stable attributes or visible text.\n- Use locators with the following priority order:\n 1. getByRole\n 2. getByLabel\n 3. getByPlaceholder\n 4. getByText\n 5. getByTestId\n 6. CSS/XPath (only if no better option available)\n- Use Page Object Model (POM) design pattern.\n- Explicit waits should be handled with Playwright’s built-in auto-waiting instead of manual delays.\n- For dropdowns, use selectOption with value or label.When generating the response, do not wrap the code with triple backticks or language identifiers. Return only plain text code"
+
+        }
+    ],
+  "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "temperature": 0.1
+}
+
+LLM API Output:
+
+{
+    "id": "chatcmpl-71badec9-cd98-4828-ba54-c5453bf3cc8c",
+    "object": "chat.completion",
+    "created": 1757400143,
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "Here is the equivalent Playwright TypeScript code for the given Selenium Java code:\n\n```typescript\nimport { chromium, test, expect } from '@playwright/test';\n\n/**\n * Class Name: Login\n */\nclass Login {\n  /**\n   * Launches the browser and navigates to the Leaftaps login page\n   */\n  async launchBrowser(): Promise<chromium.Browser> {\n    const browser = await chromium.launch({\n      headless: false,\n    });\n    return browser;\n  }\n\n  /**\n   * Creates a new browser context and navigates to the Leaftaps login page\n   * @param browser \n   */\n  async createContext(browser: chromium.Browser): Promise<chromium.BrowserContext> {\n    const context = await browser.newContext();\n    await context.route('**/*.{png,jpg,jpeg}', route => route.continue());\n    return context;\n  }\n\n  /**\n   * Navigates to the Leaftaps login page and performs login\n   * @param page \n   */\n  async login(page: chromium.Page): Promise<void> {\n    await page.goto('http://leaftaps.com/opentaps');\n    await page.fill('input[id=\"username1\"]', 'DemoSalesManager');\n    await page.fill('input[id=\"password\"]', 'crmsfa');\n    await page.click('.decorativeSubmit');\n  }\n\n  /**\n   * Retrieves the title of the current page\n   * @param page \n   */\n  async getTitle(page: chromium.Page): Promise<string> {\n    return await page.title();\n  }\n}\n\ntest('Leaftaps Login', async () => {\n  const login = new Login();\n  const browser = await login.launchBrowser();\n  const context = await login.createContext(browser);\n  const page = await context.newPage();\n  await login.login(page);\n  const title = await login.getTitle(page);\n  console.log(title);\n  await browser.close();\n});\n```\n\nHowever, to adhere to the Page Object Model (POM) design pattern and best practices, I would suggest the following refactored code:\n\n```typescript\nimport { chromium, test, expect } from '@playwright/test';\n\n/**\n * Leaftaps Login Page\n */\nclass LeaftapsLoginPage {\n  /**\n   * URL for the Leaftaps login page\n   */\n  readonly url = 'http://leaftaps.com/opentaps';\n\n  /**\n   * Username input field\n   */\n  readonly usernameInput = 'input[id=\"username1\"]';\n\n  /**\n   * Password input field\n   */\n  readonly passwordInput = 'input[id=\"password\"]';\n\n  /**\n   * Login button\n   */\n  readonly loginButton = '.decorativeSubmit';\n\n  /**\n   * Launches the browser and navigates to the Leaftaps login page\n   * @param page \n   */\n  async navigateTo(page: chromium.Page): Promise<void> {\n    await page.goto(this.url);\n  }\n\n  /**\n   * Enters the username and password and clicks the login button\n   * @param page \n   */\n  async login(page: chromium.Page): Promise<void> {\n    await page.fill(this.usernameInput, 'DemoSalesManager');\n    await page.fill(this.passwordInput, 'crmsfa');\n    await page.click(this.loginButton);\n  }\n}\n\n/**\n * Leaftaps Home Page\n */\nclass LeaftapsHomePage {\n  /**\n   * Retrieves the title of the current page\n   * @param page \n   */\n  async getTitle(page: chromium.Page): Promise<string> {\n    return await page.title();\n  }\n}\n\ntest('Leaftaps Login', async ({ browser }) => {\n  const loginPage = new LeaftapsLoginPage();\n  const homePage = new LeaftapsHomePage();\n  const context = await browser.newContext();\n  const page = await context.newPage();\n  await loginPage.navigateTo(page);\n  await loginPage.login(page);\n  const title = await homePage.getTitle(page);\n  console.log(title);\n  await browser.close();\n});\n```"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.053939704,
+        "prompt_tokens": 425,
+        "prompt_time": 0.011986365,
+        "completion_tokens": 822,
+        "completion_time": 1.880051387,
+        "total_tokens": 1247,
+        "total_time": 1.892037752
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_79da0e0073",
+    "x_groq": {
+        "id": "req_01k4pkc44wfh6srz32g13f4e5s"
+    },
+    "service_tier": "on_demand"
+}
+
+
+
