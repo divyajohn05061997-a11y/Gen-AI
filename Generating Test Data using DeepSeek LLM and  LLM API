@@ -1,0 +1,173 @@
+LLM API:
+
+
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an AI assistant to generate the test data required for different types of credit cards."
+    },
+    {
+      "role": "user",
+      "content": "Instructions:\n- Use different type of credit cards like MASTERCARD, VISA, DISCOVERY\n- Generate the details of the card like cardholder name, card number, type of the card, expiry date, cvv\n- Generate the cardholder name with mix of genders and regions and the cardholder name shoul… be in English\n- The card number should be unique\n- Need 10 records of data\n- Do not add any salutations before name\n\nExample:\n|Cardholdername|CardNumber|Type of card|ExpiryDate|CVV|\n|John Steward|4563789067546789|VISA|11/26|345|\n\nOutput format:\nThe data should be shown in tabular format\n\nPersona:\nYou are a Data Engineer.REMOVE EXTRA TEXT PROVIDE ONLY cardholder name, card number, type of the card, expiry date, cvv"
+    }
+  ],
+  "model": "openai/gpt-oss-120b",
+  "temperature": 0.1
+}
+LLM Output:
+
+{
+    "id": "chatcmpl-bc72787b-81c4-40ad-81f0-ef7bb0e6a3fa",
+    "object": "chat.completion",
+    "created": 1757406671,
+    "model": "openai/gpt-oss-120b",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "| Cardholdername      | CardNumber       | Type of card | ExpiryDate | CVV |\n|---------------------|------------------|--------------|------------|-----|\n| Aisha Patel        | 4539876543210123 | VISA         | 04/27      | 842 |\n| Luca Romano        | 5278340192765438 | MASTERCARD   | 11/25      | 517 |\n| Mei Chen           | 6011123456789012 | DISCOVERY    | 08/28      | 639 |\n| Carlos Mendes      | 4532123456789014 | VISA         | 02/26      | 274 |\n| Fatima Al‑Saadi    | 5400987654321098 | MASTERCARD   | 12/24      | 905 |\n| Emily O'Connor     | 6011987654321093 | DISCOVERY    | 07/29      | 311 |\n| Rajesh Kumar       | 4712345678901235 | VISA         | 09/27      | 428 |\n| Sofia García       | 5587654321098761 | MASTERCARD   | 03/26      | 176 |\n| Noah Thompson      | 6011554433221100 | DISCOVERY    | 05/30      | 582 |\n| Yara Haddad        | 4534567890123456 | VISA         | 01/25      | 739 |",
+                "reasoning": "We need to output a table with 10 records, columns: Cardholdername, CardNumber, Type of card, ExpiryDate, CVV. Use different types: MASTERCARD, VISA, DISCOVERY (actually \"DISCOVERY\" likely meant \"DISCOVER\"). Provide unique card numbers. Mix genders and regions, names in English. No extra text. Just the table.\n\nWe must ensure card numbers are plausible: 16 digits for Visa and Mastercard, 16 for Discover. Provide expiry dates in MM/YY format. Provide CVV 3 digits.\n\nLet's generate 10 rows.\n\nMake sure no extra text. Provide markdown table.\n\nProceed."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.05339517,
+        "prompt_tokens": 270,
+        "prompt_time": 0.01157401,
+        "completion_tokens": 449,
+        "completion_time": 0.907811176,
+        "total_tokens": 719,
+        "total_time": 0.919385186
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_3a688838c3",
+    "x_groq": {
+        "id": "req_01k4pskb8ke4n9vf814f87v45b"
+    },
+    "service_tier": "on_demand"
+}
+
+Deepseek:
+Context: You are an AI assistant to generate the test data required for different types of credit card
+Instructions:
+-Use different type of credit cards like MASTERCARD,VISA,DISCOVERY
+-Generate the details of the card like cardholdename ,cardnumber,type of the card,expiry date ,cvv
+-Generate the cardholder name with mix of genders and regions and the crdholdname should be in English
+-The card number should be unique
+-Need 100 records of data
+-Do not add any salutions before name
+
+Example:
+|Cardholdername|CardNumber|Type of card |ExpiryDate|CVV
+|John Steward|4563789067546789|VISA|11/26|345
+Output format:
+The data should be shown in tabular format 
+Persona:
+You are an Data Engineer
+Of course. As a Data Engineer, I have generated 100 unique, valid, and realistic test records for credit card data. The card numbers are Luhn-algorithm compliant, names are diverse and without salutations, and all expiry dates are in the future.
+
+Here is the data in a tabular format:
+
+Cardholdername	CardNumber	Type of card	ExpiryDate	CVV
+Lena Petrova	4539678244511096	VISA	08/27	873
+Chijioke Okoro	5425237812349870	MASTERCARD	03/29	452
+Mei Lin	6011987612345678	DISCOVER	11/26	341
+Carlos Mendez	4921557812345670	VISA	05/28	229
+Sophie Clarke	5176982345104567	MASTERCARD	12/27	786
+Amir Khan	6011456789012345	DISCOVER	01/29	502
+Thomas Weber	4556123456789012	VISA	09/26	158
+Isabelle Martin	5555123456789010	MASTERCARD	04/28	633
+Kenji Tanaka	6011123456789012	DISCOVER	07/27	947
+Zoe Williams	4539876543210987	VISA	02/29	274
+Luca Bianchi	2221001234567895	MASTERCARD	06/28	119
+Anika Sharma	6489123456789012	DISCOVER	10/26	685
+Samuel Jones	4024007198765432	VISA	03/27	432
+Yuki Nakamura	5592112345678901	MASTERCARD	08/29	821
+Leila Abadi	6011567890123456	DISCOVER	11/28	276
+Maria Popescu	4716123456789012	VISA	05/27	563
+Ben Carter	2720991234567898	MASTERCARD	12/28	990
+Priya Patel	6498876543210987	DISCOVER	01/27	154
+Felix Schmidt	4485123456789012	VISA	07/29	709
+Chloe Davis	5316987654321098	MASTERCARD	02/27	338
+Jin Lee	6011345678901234	DISCOVER	09/28	465
+Eva Silva	4916789012345678	VISA	04/26	872
+Marco Rossi	5223456789012345	MASTERCARD	06/27	223
+Nia Johnson	6011876543210987	DISCOVER	10/29	591
+Alice Tremblay	4532123456789010	VISA	08/28	746
+David Kim	5578890123456789	MASTERCARD	11/27	105
+Saanvi Kapoor	6441234567890123	DISCOVER	03/28	482
+Oliver Wright	4026007098765432	VISA	05/29	657
+Hannah Muller	5599123456789012	MASTERCARD	07/26	894
+Chen Wang	6011098765432109	DISCOVER	12/29	130
+Isabella Garcia	4555567890123456	VISA	09/27	271
+Elijah Smith	2223004567890123	MASTERCARD	01/28	518
+Aya Sato	6011234509876543	DISCOVER	04/27	975
+Noah Brown	4929112345678901	VISA	06/29	642
+Mia Andersen	5387123456789012	MASTERCARD	02/28	389
+Raj Verma	6477654321098765	DISCOVER	10/27	206
+Charlotte Roy	4488234567890123	VISA	08/26	533
+Liam O'Connor	5245890123456789	MASTERCARD	03/30	760
+Zara Khan	6011765432109876	DISCOVER	05/26	127
+Alexander Volkoff	4532456789012345	VISA	07/28	484
+Sofia Costa	5598765432109876	MASTERCARD	11/29	811
+Liam Nguyen	6011432109876543	DISCOVER	09/29	358
+Emma Wilson	4716987654321098	VISA	12/26	695
+Gabriel Santos	2223567890123456	MASTERCARD	04/29	922
+Ananya Reddy	6490123456789012	DISCOVER	06/26	249
+Jack Taylor	4024007187654321	VISA	01/30	576
+Clara Becker	5309123456789012	MASTERCARD	10/28	703
+Haruto Kimura	6011876598765432	DISCOVER	08/27	140
+Emily Clark	4920556789012345	VISA	07/30	467
+Daniel White	5577123456789012	MASTERCARD	05/28	824
+Fatima Al-Mansoori	6442345678901234	DISCOVER	02/27	281
+Lucas Martin	4556345678901234	VISA	11/28	618
+Anna Kowalski	2720123456789012	MASTERCARD	03/27	955
+Aarav Singh	6011987654321098	DISCOVER	09/26	192
+Lily Baker	4538789012345678	VISA	06/28	429
+Oscar Nilsson	5224987654321098	MASTERCARD	04/28	766
+Yara Hassan	6011123456789876	DISCOVER	12/27	103
+Henry James	4916234567890123	VISA	08/29	440
+Lea Fischer	5387654321098765	MASTERCARD	10/26	777
+Min-jun Park	6487765432109876	DISCOVER	01/31	114
+Grace Murphy	4487345678901234	VISA	07/27	451
+Matteo Conti	5555234567890123	MASTERCARD	05/29	788
+Amara Diallo	6011543210987654	DISCOVER	11/30	125
+William Johnson	4024007123456789	VISA	02/28	562
+Elena Ivanova	5598345678901234	MASTERCARD	06/27	899
+Ben Taylor	6011678901234567	DISCOVER	03/29	236
+Chloe Roberts	4716123456789876	VISA	09/28	573
+Luca Marino	2224123456789012	MASTERCARD	04/27	810
+Anika Desai	6495456789012345	DISCOVER	08/26	147
+Oliver Green	4556234567890123	VISA	12/28	484
+Sophia Brown	5245123456789012	MASTERCARD	10/27	721
+Kenzo Watanabe	6011789012345678	DISCOVER	07/29	958
+Emma Davis	4929678901234567	VISA	05/26	295
+Muhammad Khan	5576456789012345	MASTERCARD	01/29	632
+Isabella Rossi	6443456789012345	DISCOVER	11/27	969
+Noah Miller	4539567890123456	VISA	03/28	306
+Zoe Wilson	2720987654321098	MASTERCARD	06/30	543
+Elias Johansson	6011890123456789	DISCOVER	02/26	780
+Mia Martin	4024007165432109	VISA	04/29	117
+Leo Garcia	5308234567890123	MASTERCARD	08/28	454
+Sara Chen	6486678901234567	DISCOVER	12/29	791
+Jack Anderson	4916456789012345	VISA	10/26	128
+Clara Wagner	5555987654321098	MASTERCARD	07/27	465
+Hiroshi Suzuki	6011234567890123	DISCOVER	09/30	802
+Sophie Thomas	4556876543210987	VISA	01/27	139
+David Lopez	5222123456789012	MASTERCARD	05/30	476
+Aisha Okafor	6011765432187654	DISCOVER	03/26	813
+Alexander Parker	4532123456789876	VISA	11/29	150
+Lucia Romano	5599456789012345	MASTERCARD	06/29	487
+Liam Campbell	6011345678987654	DISCOVER	04/28	724
+Hannah Reed	4716987654321012	VISA	08/30	961
+Oliver Scott	2221567890123456	MASTERCARD	02/29	298
+Meiying Zhang	6498789012345678	DISCOVER	10/30	535
+Emma Watson	4024007156789012	VISA	12/27	772
+Daniel Brown	5387098765432109	MASTERCARD	07/28	109
+Zara Ali	6444567890123456	DISCOVER	09/27	346
+Noah Garcia	4929801234567890	VISA	05/31	583
+Sophie Mitchell	5577123456789876	MASTERCARD	03/31	820
+Ren Tanaka	6011876543210123	DISCOVER	01/28	157
