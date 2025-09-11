@@ -1,0 +1,58 @@
+Context: You are an AI assistant to generate action items for the given teams call transcript
+Can you take the following teams call transcript as input and convert it to action items:
+
+Call Participants:
+John (Project Manager)
+Emily (AI Implementation Lead)
+David (IT Manager)
+Sarah (Marketing Manager)
+Michael (Data Scientist)
+Transcript:
+John: Alright, let's get started. Emily, can you walk us through the AI tools we're planning to implement?
+Emily: Absolutely, John. We're introducing three AI-powered tools to streamline our operations. First, we'll be implementing a chatbot for customer support, which will help reduce response times and improve customer satisfaction.
+David: That sounds great. How will this chatbot integrate with our existing systems?
+Emily: We've developed an API that will connect the chatbot to our CRM and ticketing system. We'll also be training the chatbot on our existing customer support data to ensure it can handle a wide range of queries.
+Sarah: I'm excited about this. How will we measure the success of the chatbot?
+Emily: We'll be tracking metrics such as response time, resolution rate, and customer satisfaction. We'll also be monitoring the chatbot's performance regularly to identify areas for improvement.
+Michael: I'd like to add that we'll also be using machine learning algorithms to continuously improve the chatbot's performance and accuracy.
+John: That's great to hear. What's the timeline for implementation?
+Emily: We're planning to roll out the chatbot in two phases. The first phase will go live in six weeks, and the second phase will follow in three months.
+David: I'll make sure to allocate the necessary resources to support the implementation.
+Sarah: What about the other two AI tools? Can you tell us more about them?
+Emily: The second tool is an AI-powered content generator that will help us create personalized marketing content. The third tool is a predictive analytics platform that will help us forecast sales and identify trends.
+Michael: Yes, the predictive analytics platform will be a game-changer for us. We'll be able to make data-driven decisions and stay ahead of the competition.
+John: Excellent. Let's summarize the action items and timelines. Emily, can you send out a detailed project plan and timeline to everyone?
+Emily: Will do. I'll send it out by the end of the day.
+John: Great. Let's schedule a follow-up call in two weeks to review progress. Thanks, everyone, for your input and participation.
+Call ended.
+
+Instructions:
+-[MANDATORY] Extract all the action item from the teams call transcript
+-[IMPORTANT] Ignore all the conversation
+-[IMPORTANT] Assign a priority for each action item
+-[IMPORTANT]The target date should be in dd/mm/yyyy format
+
+Example
+
+|Action                       |Owner   |    Target Date|
+Implement AI powered chatbot  - Emily   - 12/12/2025
+
+Tone: The content should be professional and precise
+Output Format :The output should be shared in tabular format
+Persona:You are a Project Manager assigning responsiblity 
+
+
+Chatgpt ouput:
+
+| Action                                                                               | Owner   | Target Date | Priority |
+| ------------------------------------------------------------------------------------ | ------- | ----------- | -------- |
+| Implement AI-powered chatbot – Phase 1 rollout                                       | Emily   | 22/10/2025  | High     |
+| Implement AI-powered chatbot – Phase 2 rollout                                       | Emily   | 10/12/2025  | High     |
+| Allocate IT resources to support chatbot implementation                              | David   | 22/10/2025  | High     |
+| Train chatbot on existing customer support data                                      | Emily   | 15/10/2025  | High     |
+| Track and monitor chatbot performance (response time, resolution rate, satisfaction) | Emily   | Ongoing     | Medium   |
+| Apply machine learning algorithms to continuously improve chatbot accuracy           | Michael | Ongoing     | Medium   |
+| Send detailed project plan and timeline to all participants                          | Emily   | 10/09/2025  | High     |
+| Schedule and conduct follow-up call to review progress                               | John    | 24/09/2025  | High     |
+| Plan for AI-powered content generator implementation                                 | Emily   | 30/11/2025  | Medium   |
+| Plan for predictive analytics platform implementation                                | Emily   | 15/12/2025  | Medium   |
