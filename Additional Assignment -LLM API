@@ -1,0 +1,47 @@
+LLM API
+{
+    "messages": [
+        {
+            "role": "user",
+            
+            "content": "Context: You are an AI assistant to generate action items for the given teams call transcript.\n\nCall Participants:\nJohn (Project Manager)\nEmily (AI Implementation Lead)\nDavid (IT Manager)\nSarah (Marketing Manager)\nMichael (Data Scientist)\n\nTranscript:\nJohn: Alright, let's get started. Emily, can you walk us through the AI tools we're planning to implement?\nEmily: Absolutely, John. We're introducing three AI-powered tools to streamline our operations. First, we'll be implementing a chatbot for customer support, which will help reduce response times and improve customer satisfaction.\nDavid: That sounds great. How will this chatbot integrate with our existing systems?\nEmily: We've developed an API that will connect the chatbot to our CRM and ticketing system. We'll also be training the chatbot on our existing customer support data to ensure it can handle a wide range of queries.\nSarah: I'm excited about this. How will we measure the success of the chatbot?\nEmily: We'll be tracking metrics such as response time, resolution rate, and customer satisfaction. We'll also be monitoring the chatbot's performance regularly to identify areas for improvement.\nMichael: I'd like to add that we'll also be using machine learning algorithms to continuously improve the chatbot's performance and accuracy.\nJohn: That's great to hear. What's the timeline for implementation?\nEmily: We're planning to roll out the chatbot in two phases. The first phase will go live in six weeks, and the second phase will follow in three months.\nDavid: I'll make sure to allocate the necessary resources to support the implementation.\nSarah: What about the other two AI tools? Can you tell us more about them?\nEmily: The second tool is an AI-powered content generator that will help us create personalized marketing content. The third tool is a predictive analytics platform that will help us forecast sales and identify trends.\nMichael: Yes, the predictive analytics platform will be a game-changer for us. We'll be able to make data-driven decisions and stay ahead of the competition.\nJohn: Excellent. Let's summarize the action items and timelines. Emily, can you send out a detailed project plan and timeline to everyone?\nEmily: Will do. I'll send it out by the end of the day.\nJohn: Great. Let's schedule a follow-up call in two weeks to review progress. Thanks, everyone, for your input and participation.\nCall ended.\n\nInstructions:\n-[MANDATORY] Extract all the action items from the teams call transcript\n-[IMPORTANT] Ignore all the conversation\n-[IMPORTANT] Assign a priority for each action item\n-[IMPORTANT] The target date should be in dd/mm/yyyy format\n\nExample:\n|Action                       |Owner   |Target Date|\nImplement AI powered chatbot  - Emily   - 12/12/2025\n\nTone: The content should be professional and precise\nOutput Format: The output should be shared in tabular format\nPersona: You are a Project Manager assigning responsibility"
+
+        }
+    ],
+  "model": "openai/gpt-oss-20b",
+    "temperature": 0.1
+}
+
+LLM Output:{
+    "id": "chatcmpl-f4b269c7-dd79-4e9d-ae54-0fec85171d78",
+    "object": "chat.completion",
+    "created": 1757609131,
+    "model": "openai/gpt-oss-20b",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "| Action                                               | Owner   | Target Date | Priority |\n|-------------------------------------------------------|---------|-------------|----------|\n| Send detailed project plan and timeline to all team members | Emily   | 11/09/2025  | High     |\n| Allocate necessary resources to support chatbot implementation | David   | 11/09/2025  | High     |\n| Schedule a follow‑up call to review progress          | John    | 25/09/2025  | Medium   |",
+                "reasoning": "We need to extract action items from transcript. Identify actions: Emily to send detailed project plan and timeline by end of day. David to allocate necessary resources. John to schedule follow-up call in two weeks. Also maybe Sarah? But no action. Michael? No. Also Emily to develop API? But that's part of implementation. The action items explicitly: Emily send project plan, David allocate resources, John schedule follow-up call. Also maybe Emily to develop API? But not explicit. The transcript: \"Emily: We'll be developing an API that will connect the chatbot to our CRM and ticketing system.\" That's a plan, not action item. \"David: I'll make sure to allocate the necessary resources to support the implementation.\" That's action. \"John: Let's schedule a follow-up call in two weeks to review progress.\" That's action. Also \"Emily: Will do. I'll send it out by the end of the day.\" So action: send project plan. Also maybe \"Emily: We'll be tracking metrics such as response time, resolution rate, and customer satisfaction.\" Not action. So three items.\n\nWe need priority. Likely high priority for resource allocation, medium for sending plan, low for scheduling follow-up? But scheduling follow-up is important. Could assign priority: High, Medium, Low. Or numeric? Not specified. Just assign priority. Use \"High\", \"Medium\", \"Low\".\n\nTarget dates: For Emily sending plan: end of day. Today? We don't know date. We can assume current date? Not given. We can set target date as today's date. But we don't know. We can use placeholder? Maybe \"today\" but format dd/mm/yyyy. We can assume call ended today. Let's assume date is 11/09/2025? But current date is 2025-09-11. So dd/mm/yyyy is 11/09/2025. For David allocate resources: no date specified. Could be immediate. Maybe same day. Use 11/09/2025. For follow-up call in two weeks: from 11/09/2025 + 14 days = 25/09/2025. So target date 25/09/2025.\n\nThus table:\n\n| Action | Owner | Target Date | Priority |\nBut format example only had Action, Owner, Target Date. But we need priority. The instruction: \"Assign a priority for each action item\". So we need to include priority column. Example didn't include priority. But we can add column. Format: tabular. We'll include columns: Action, Owner, Target Date, Priority.\n\nLet's produce."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.051332687,
+        "prompt_tokens": 648,
+        "prompt_time": 0.042388883,
+        "completion_tokens": 638,
+        "completion_time": 0.570576625,
+        "total_tokens": 1286,
+        "total_time": 0.612965508
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_a5ac2a5d7b",
+    "x_groq": {
+        "id": "req_01k4wtnyc5fazber7avhmgqwpm"
+    },
+    "service_tier": "on_demand"
+}
